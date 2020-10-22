@@ -149,7 +149,7 @@ Response :
 }
 ```
 
-## Delete Studenet
+## Delete Student
 
 Request :
 - Method : DELETE
