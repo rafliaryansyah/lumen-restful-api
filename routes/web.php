@@ -8,8 +8,9 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'student'], function () use
 
         $router->get('create', 'StudentController@create');
         $router->get('{id}', 'StudentController@detailStudent');
-        $router->patch('{id}', 'StudentController@update');
+        $router->patch('{id}/update', 'StudentController@update');
         $router->get('', 'StudentController@students');
+        $router->delete('{id}/delete', 'StudentController@destroy');
 
     });
 });

@@ -80,17 +80,36 @@ class StudentController extends  Controller {
         ], 200);
     }
 
-    public function students(Student $student)
+    public function students()
     {
         $per_page = \request('per_page') ? : 10;
-        $student = Student::latest()->paginate($per_page);
-        $student->appends(compact('per_page'));
+        $students = Student::latest()->paginate($per_page);
+        $students->appends(compact('per_page'));
+
+        if ($students->count() == 0)
+        {
+            return response()->json([
+                'status' => 200,
+                'message' => 'List data pelajar tidak dapat ditemukan.'
+            ], 200);
+        }
 
         return response()->json([
             'status' => 200,
             'message' => 'Success',
-            'data' => $student
+            'data' => $students
         ]);
+    }
+
+    public function destroy($id)
+    {
+        $sudent = Student::findOrFail($id);
+        $sudent->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Success'
+        ], 200);
     }
 
 }
