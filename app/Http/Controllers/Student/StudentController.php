@@ -7,10 +7,11 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use app\Http\Resources\DetailStudentResource;
 
 class StudentController extends  Controller {
 
-    public  function create(Request $request)
+    public function create(Request $request)
     {
         $this->validate($request, [
             'firstName' => 'required|max:32',
@@ -32,6 +33,25 @@ class StudentController extends  Controller {
             'status' => 200,
             'message' => 'Success',
             'data' => $student
+        ], 200);
+    }
+
+    public function detailStudent($id)
+    {
+        $student = Student::find($id);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'success',
+            'data' => [
+                'id' => $student->id,
+                'firstName' => $student->firstName,
+                'lastName' => $student->lastName,
+                'class' => $student->class,
+                'exSchool' => $student->exSchool,
+                'schoolOrigin' => $student->schoolOrigin,
+                'created_at' => $student->created_at->format('d, F Y')
+            ]
         ], 200);
     }
 
