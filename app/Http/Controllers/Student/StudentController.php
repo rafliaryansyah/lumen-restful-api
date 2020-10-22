@@ -80,4 +80,17 @@ class StudentController extends  Controller {
         ], 200);
     }
 
+    public function students(Student $student)
+    {
+        $per_page = \request('per_page') ? : 10;
+        $student = Student::latest()->paginate($per_page);
+        $student->appends(compact('per_page'));
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Success',
+            'data' => $student
+        ]);
+    }
+
 }
