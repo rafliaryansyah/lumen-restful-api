@@ -4,9 +4,12 @@
 
 
 $router->group(['prefix' => 'api/v1', 'namespace' => 'student'], function () use ($router){
+    $router->group(['prefix' => 'students'], function () use ($router){
 
-    $router->get('students/create', 'StudentController@create');
-    $router->get('students/{id}', 'StudentController@detailStudent');
+        $router->get('create', 'StudentController@create');
+        $router->get('{id}', 'StudentController@detailStudent');
+        $router->patch('{id}', 'StudentController@update');
 
+    });
 });
 

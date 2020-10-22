@@ -55,4 +55,29 @@ class StudentController extends  Controller {
         ], 200);
     }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'firstName' => 'required|max:32',
+            'lastName' => 'required|max:32',
+            'class' => 'required|max:24',
+            'exSchool' => 'required|max:32'
+        ]);
+
+        $student = Student::findOrFail($id);
+        $student->update([
+            'firstName' => $request->input('firstName'),
+            'lastName'  => $request->input('lastName'),
+            'class'     => $request->input('class'),
+            'exSchool'  => $request->input('exSchool'),
+            'schoolOrigin' => $request->input('schoolOrigin')
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Success',
+            'data' => $student
+        ], 200);
+    }
+
 }
